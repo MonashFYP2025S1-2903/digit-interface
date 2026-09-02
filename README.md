@@ -10,6 +10,20 @@ Python interface for the [DIGIT tactile sensor](https://digit.ml).
 
 **For updates and discussions please join the #DIGIT channel at the [www.touch-sensing.org](https://www.touch-sensing.org/) community.**
 
+---
+
+## CSIRO fork note
+
+This is a fork of [`facebookresearch/digit-interface`](https://github.com/facebookresearch/digit-interface) (unmaintained since 2021) for the tactile-gap preference-learning project. It carries one compatibility patch — `Digit.connect()` forces the V4L2 backend so `get_frame()` works on modern Linux + OpenCV (see [CHANGELOG](CHANGELOG.md)).
+
+Install pinned:
+
+```bash
+pip install "git+https://github.com/MonashFYP2025S1-2903/digit-interface@v0.2.1-csiro.1"
+```
+
+**Licensing:** upstream is **CC BY-NC 4.0 (non-commercial)** — see [LICENSE](LICENSE). Fine for research use. Before any commercial / translation outcome, a clean-room reimplementation of the small capture layer (or a commercial licence from Meta) would be needed. Flagged in the vault notes below.
+
 ## Installation
 
 The preferred way of installation is through PyPi:
@@ -108,6 +122,14 @@ sudo udevadm trigger
 ```
  
 Replug the DIGIT device into host.
+
+## Related Obsidian vault notes
+
+Plain-text paths (this repo is outside the vault, so wikilinks would not resolve):
+
+- `Work_CSIRO/P_2026-08-28_TactileGap_PreferenceLearning/DIGIT_Tactile_Sensor.md` — sensor reference, the FFMPEG-vs-V4L2 root cause this fork fixes, mount design.
+- `Work_CSIRO/P_2026-08-28_TactileGap_PreferenceLearning/User_Study_Rig_and_Accounts.md` — Franka workstation account, Python env, open items.
+- `D:\Code\claude_working\digit_bringup\` — smoke-test + realtime-viewer scripts.
 
 ## License
 This code is licensed under CC-by-NC, as found in the [LICENSE](LICENSE) file.

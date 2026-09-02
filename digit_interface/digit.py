@@ -59,7 +59,11 @@ class Digit(DigitDefaults):
 
     def connect(self) -> None:
         logger.info(f"{self.serial}:Connecting to DIGIT")
-        self.__dev = cv2.VideoCapture(self.dev_name)
+        # CSIRO fork patch: force the V4L2 backend. cv2.VideoCapture(<str path>) with
+        # no backend arg lets OpenCV pick FFMPEG for a "/dev/videoN" string, whose V4L2
+        # input is unreliable (get_frame -> "ioctl(VIDIOC_QBUF): Bad file descriptor").
+        # Observed on Ubuntu 24.04 + opencv-python 4.14, DIGIT D20289 (YUYV-only).
+        self.__dev = cv2.VideoCapture(self.dev_name, cv2.CAP_V4L2)
         if not self.__dev.isOpened():
             logger.error(
                 f"Cannot open video capture device {self.serial} - {self.dev_name}"
